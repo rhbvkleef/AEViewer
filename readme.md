@@ -10,6 +10,8 @@ If you want to contribute, you can simply fork this project. If you cannot code 
 
 We are currently aware of a few vulnerabilities on the in-game end of this project. We are working out a fix (which is likely going to involve a separate mod). Before deploying on public servers, please await this.
 
+If you find any critical security vulnerabilities that directly affect the security of either the "official" production server or anyone specific in person. Please notify me immediately so it can be fixed as fast as possible.
+
 ## License
 
 AE Viewer is licensed under LGPL (Lesser general public license) V3.0. It basically means you are free to do anything you want.
