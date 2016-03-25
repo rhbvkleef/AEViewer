@@ -54,6 +54,13 @@ if [ -z "$DB_CONNECTION" ]; then
   echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c postgresql-9.2"
   echo "then, execute rhc app deploy $OPENSHIFT_DEPLOYMENT_BRANCH -a $OPENSHIFT_APP_NAME"
   echo "Continuing anyway in case of custom DB cartridge. Please pay attention!"
+else
+  echo "Database driver set to '$DB_CONNECTION'..."
+  if [ "$(type -t set_env_var)" == "function" ]; then
+    set_env_var 'DB_CONNECTION' $DB_CONNECTION $OPENSHIFT_HOMEDIR/.env/user_vars
+    set_env_var 'DB_HOST' $DB_HOST $OPENSHIFT_HOMEDIR/.env/user_vars
+    set_env_var 'DB_PORT' $DB_PORT $OPENSHIFT_HOMEDIR/.env/user_vars
+  fi
 fi
 
 # Copy env in openshift data dir to project

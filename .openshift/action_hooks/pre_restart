@@ -37,7 +37,7 @@ if [ ! -z "$OPENSHIFT_APP_DNS" ]; then
 fi
 
 if [ ! -z "$OPENSHIFT_SECRET_TOKEN" ]; then
-  export APP_KEY=${OPENSHIFT_SECRET_TOKEN:0:31}
+  export APP_KEY=${OPENSHIFT_SECRET_TOKEN:0:32}
   if [ "$(type -t set_env_var)" == "function" ]; then
     set_env_var 'APP_KEY' $APP_KEY $OPENSHIFT_HOMEDIR/.env/user_vars
   fi
@@ -45,10 +45,14 @@ fi
 
 if [ ! -z "$OPENSHIFT_POSTGRESQL_DB_HOST" ]; then
   export DB_CONNECTION="pgsql"
+  export DB_HOST=$OPENSHIFT_POSTGRESQL_DB_HOST
+  export DB_PORT=$OPENSHIFT_POSTGRESQL_DB_PORT
 fi
 
 if [ ! -z "$OPENSHIFT_MYSQL_DB_HOST" ]; then
   export DB_CONNECTION="mysql"
+  export DB_HOST=$OPENSHIFT_MYSQL_DB_HOST
+  export DB_PORT=$OPENSHIFT_MYSQL_DB_PORT
 fi
 
 if [ -z "$DB_CONNECTION" ]; then
@@ -56,11 +60,13 @@ if [ -z "$DB_CONNECTION" ]; then
   echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c mysql-5.5"
   echo "or"
   echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c postgresql-9.2"
-  echo "then make a sample commit (add whitespace somewhere) and re-push"
-  exit 5
+  echo "then, execute rhc app deploy $OPENSHIFT_DEPLOYMENT_BRANCH -a $OPENSHIFT_APP_NAME"
+  echo "Continuing anyway in case of custom DB cartridge. Please pay attention!"
 else
   echo "Database driver set to '$DB_CONNECTION'..."
   if [ "$(type -t set_env_var)" == "function" ]; then
     set_env_var 'DB_CONNECTION' $DB_CONNECTION $OPENSHIFT_HOMEDIR/.env/user_vars
+    set_env_var 'DB_HOST' $DB_HOST $OPENSHIFT_HOMEDIR/.env/user_vars
+    set_env_var 'DB_PORT' $DB_PORT $OPENSHIFT_HOMEDIR/.env/user_vars
   fi
 fi
