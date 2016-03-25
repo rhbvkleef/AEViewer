@@ -38,9 +38,9 @@
                 <div class="panel panel-info" id="contribute">
                   <div class="panel-heading">Contributing</div>
                   <div class="panel-body">
-                    At this moment, you may only contribute with my permission.
-                    If you have any ideas, contributions, complaints or anything else,
-                    feel free to contact me at: <a href="mailto:rhbvkleef+aeviewer@gmail.com">rhbvkleef+aeviewer@gmail.com</a>
+                    <p>
+                      It is now possible to contribute! This project is hosted on github at <a href="https://github.com/rhbvkleef/AEViewer">rhbvkleef/AEViewer</a>. There, you can either fork the repository and modify the code yourself, or you can create an issue and let someone else modify the code for you (which is perfectly acceptable).
+                    </p>
                   </div>
                 </div>
                 <div class="panel panel-info" id="security">
@@ -48,7 +48,7 @@
                   <div class="panel-body">
                     There are currently a few security flaws in the way this program works.
                     <p>
-                      As you may have noticed, you need to enter your login password in plaintext on your computercraft computer. This is obviously very insecure. I have a few very elaborate ways to fix it, but I am sure your ideas must be much better. Again: Please email them to <a href="mailto:rhbvkleef+aeviewer@gmail.com">rhbvkleef+aeviewer@gmail.com</a>
+                      As you may have noticed, you need to enter your login password in plaintext on your computercraft computer. This is obviously very insecure. I have a few very elaborate ways to fix it, but I am sure your ideas must be much better. Again: Please email them to <a href="mailto:rhbvkleef+aeviewer@gmail.com">rhbvkleef+aeviewer@gmail.com</a> or create an issue on the github page <a href="https://github.com/rhbvkleef/AEViewer">rhbvkleef/AEViewer</a>.
                     </p>
                     <p>
                       On server side, your password is stored in a secure hashed format: I do not, and cannot know your password. I will not publish the specific crypto I am using, but rest assured it is going to take until the end of the universe to crack it. This does not mean you should do any of the following:
