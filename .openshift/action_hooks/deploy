@@ -1,0 +1,74 @@
+#!/bin/bash
+# This deploy hook gets executed after dependencies are resolved and the
+# build hook has been run but before the application has been started back
+# up again.  This script gets executed directly, so it could be python, php,
+# ruby, etc.
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+set -e
+
+echo "Setting environment variables..."
+export APP_ENV="${APPLICATION_ENV:-production}"
+if [[ "${APPLICATION_ENV:-}" != "development" ]]; then
+  export APP_DEBUG=false
+else
+  export APP_DEBUG=true
+fi
+if [ "$(type -t set_env_var)" == "function" ]; then
+  set_env_var 'APP_ENV' $APP_ENV $OPENSHIFT_HOMEDIR/.env/user_vars
+  set_env_var 'APP_DEBUG' $APP_DEBUG $OPENSHIFT_HOMEDIR/.env/user_vars
+fi
+
+if [ ! -z "$OPENSHIFT_APP_DNS" ]; then
+  export APP_URL="$OPENSHIFT_APP_DNS"
+  if [ "$(type -t set_env_var)" == "function" ]; then
+    set_env_var 'APP_URL' $APP_URL $OPENSHIFT_HOMEDIR/.env/user_vars
+  fi
+fi
+
+if [ ! -z "$OPENSHIFT_SECRET_TOKEN" ]; then
+  export APP_KEY=${OPENSHIFT_SECRET_TOKEN:0:32}
+  if [ "$(type -t set_env_var)" == "function" ]; then
+    set_env_var 'APP_KEY' $APP_KEY $OPENSHIFT_HOMEDIR/.env/user_vars
+  fi
+fi
+
+if [ ! -z "$OPENSHIFT_POSTGRESQL_DB_HOST" ]; then
+  export DB_CONNECTION="pgsql"
+  export DB_HOST=$OPENSHIFT_POSTGRESQL_DB_HOST
+  export DB_PORT=$OPENSHIFT_POSTGRESQL_DB_PORT
+fi
+
+if [ ! -z "$OPENSHIFT_MYSQL_DB_HOST" ]; then
+  export DB_CONNECTION="mysql"
+  export DB_HOST=$OPENSHIFT_MYSQL_DB_HOST
+  export DB_PORT=$OPENSHIFT_MYSQL_DB_PORT
+fi
+
+# Warn for missing database cartridge
+if [ -z "$DB_CONNECTION" ]; then
+  echo "Could not find the database cartridge.  Please run:"
+  echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c mysql-5.5"
+  echo "or"
+  echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c postgresql-9.2"
+  echo "then, execute rhc app deploy $OPENSHIFT_DEPLOYMENT_BRANCH -a $OPENSHIFT_APP_NAME"
+  echo "Continuing anyway in case of custom DB cartridge. Please pay attention!"
+fi
+
+# Copy env in openshift data dir to project
+#TODO: use provided user_vars (for now, just manually throw them into ~/app-root/data/.env)
+if [ -f ${OPENSHIFT_DATA_DIR}/.env ]; then
+    echo "Autocompleting '.env' file into repository..."
+
+    touch ${OPENSHIFT_REPO_DIR}/.env
+
+    while read line
+    do
+      eval echo "$line" >> ${OPENSHIFT_REPO_DIR}/.env
+    done < ${OPENSHIFT_DATA_DIR}/.env
+else
+    echo "Enviroments settings file '.env' not found. Using default."
+    echo "  Note: This either not works, or you have configured your instance"
+    echo "  insecurely. Please keep this in mind."
+fi
