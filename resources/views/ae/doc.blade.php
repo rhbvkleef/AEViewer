@@ -18,7 +18,8 @@
                       <p>You can download the computercraft program by entering the following command:</p>
                       <p>
                         <code>
-                          pastebin get ... startup
+                          pastebin get zrB1QDsY startup
+                          pastebin get 4nRg9CHU json
                         </code>
                       </p>
                       <p>Then simply open the program by entering:</p>
