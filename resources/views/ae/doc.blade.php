@@ -17,10 +17,8 @@
                       <p>Fist you need to make sure you have enabled the HTTP API in the computercraft config file. (It should be enabled by default.) Then place a computer next to any AE network component (a wire, controller, storage monitor, anything) and start it up.</p>
                       <p>You can download the computercraft program by entering the following command:</p>
                       <p>
-                        <code>
-                          pastebin get zrB1QDsY startup
-                          pastebin get 4nRg9CHU json
-                        </code>
+                        <code>pastebin get zrB1QDsY startup</code><br>
+                        <code>pastebin get 4nRg9CHU json</code>
                       </p>
                       <p>Then simply open the program by entering:</p>
                       <p>
