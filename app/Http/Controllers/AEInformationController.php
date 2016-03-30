@@ -34,7 +34,7 @@ class AEInformationController extends Controller {
     					   ->with('aesystem', $user->item_list)
                  ->with('total', $total)
                  ->with('types', $types)
-                 ->with('timezone', $timezone);
+                 ->with('timezone', "UTC");
     	}else {
             //Item list is invalid, generate proper message
     		return view('errors.404', ['error' => \App\Helpers\AESystemJSONValidator::$lastError]);

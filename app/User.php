@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function getUpdatedAtAttribute($value) {
         return Carbon::createFromTimestamp(strtotime($value))
-            ->timezone('Europe/Amsterdam')
+            ->timezone('Europe/London')
             ->formatLocalized('%H:%M.%S %d-%m-%Y');
     }
 }
