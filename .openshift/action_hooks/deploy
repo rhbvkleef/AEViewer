@@ -38,12 +38,16 @@ if [ ! -z "$OPENSHIFT_POSTGRESQL_DB_HOST" ]; then
   export DB_CONNECTION="pgsql"
   export DB_HOST=$OPENSHIFT_POSTGRESQL_DB_HOST
   export DB_PORT=$OPENSHIFT_POSTGRESQL_DB_PORT
+  export DB_USERNAME=$OPENSHIFT_POSTGRESQL_DB_USERNAME
+  export DB_PASSWORD=$OPENSHIFT_POSTGRESQL_DB_USERNAME
 fi
 
 if [ ! -z "$OPENSHIFT_MYSQL_DB_HOST" ]; then
   export DB_CONNECTION="mysql"
   export DB_HOST=$OPENSHIFT_MYSQL_DB_HOST
   export DB_PORT=$OPENSHIFT_MYSQL_DB_PORT
+  export DB_USERNAME=$OPENSHIFT_MYSQL_DB_USERNAME
+  export DB_PASSWORD=$OPENSHIFT_MYSQL_DB_PASSWORD
 fi
 
 # Warn for missing database cartridge
@@ -60,11 +64,11 @@ else
     set_env_var 'DB_CONNECTION' $DB_CONNECTION $OPENSHIFT_HOMEDIR/.env/user_vars
     set_env_var 'DB_HOST' $DB_HOST $OPENSHIFT_HOMEDIR/.env/user_vars
     set_env_var 'DB_PORT' $DB_PORT $OPENSHIFT_HOMEDIR/.env/user_vars
+    set_env_var 'DB_USERNAME' $DB_USERNAME $OPENSHIFT_HOMEDIR/.env/user_vars
+    set_env_var 'DB_PASSWORD' $DB_PASSWORD $OPENSHIFT_HOMEDIR/.env/user_vars
   fi
 fi
 
-# Copy env in openshift data dir to project
-#TODO: use provided user_vars (for now, just manually throw them into ~/app-root/data/.env)
 if [ -f ${OPENSHIFT_DATA_DIR}/.env ]; then
     echo "Autocompleting '.env' file into repository..."
 
@@ -75,7 +79,18 @@ if [ -f ${OPENSHIFT_DATA_DIR}/.env ]; then
       eval echo "$line" >> ${OPENSHIFT_REPO_DIR}/.env
     done < ${OPENSHIFT_DATA_DIR}/.env
 else
-    echo "Enviroments settings file '.env' not found. Using default."
-    echo "  Note: This either not works, or you have configured your instance"
-    echo "  insecurely. Please keep this in mind."
+    if [ -f ${OPENSHIFT_REPO_DIR}/.env.openshift ]; then
+        echo "Autocompleting '.env.openshift' file from repository. No default provided."
+
+        touch ${OPENSHIFT_REPO_DIR}/.env
+
+        while read line
+        do
+          eval echo "$line" >> ${OPENSHIFT_REPO_DIR}/.env
+        done < ${OPENSHIFT_REPO_DIR}/.env.openshift
+    else
+        echo "Enviroments settings file '.env' not found. Not autocompleting!"
+        echo "  Note: This either not works, or you have configured your instance"
+        echo "  insecurely. Please keep this in mind."
+    fi
 fi
