@@ -1,5 +1,7 @@
 # AE Viewer
 
+[![Build Status](https://travis-ci.org/rhbvkleef/AEViewer.svg?branch=master)](https://travis-ci.org/rhbvkleef/AEViewer)
+
 AE Viewer is a project built around bing able to view (and maybe in the future also modify) your AE-system. The repository you are looking at is the frontent website.
 
 ## Backend
