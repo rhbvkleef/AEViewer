@@ -10,7 +10,7 @@
                 <ul class="list-group">
                     <li class="list-group-item">Total items: {{$total}}</li>
                     <li class="list-group-item">Total types: {{$types}}</li>
-                    <li class="list-group-item">Last updated at: {{ $user->updated_at }}<a href="{{ Request::url() }}" class="pull-right"><i class="glyphicon glyphicon-refresh"></i></a></li>
+                    <li class="list-group-item">Last updated at: {{ $user->updated_at }} ({{$timezone}})<a href="{{ Request::url() }}" class="pull-right"><i class="glyphicon glyphicon-refresh"></i></a></li>
                 </ul>
 
                 <div class="panel-body">

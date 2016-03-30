@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use Config;
 
 use App\User;
 use App\Http\Requests;
@@ -25,12 +26,15 @@ class AEInformationController extends Controller {
                 $types++;
             }
 
+            $timezone = Config::get('app.timezone');
+
             //Generate view
-    		return view('ae.view')
-    					->with('user', $user)
-    					->with('aesystem', $user->item_list)
-                        ->with('total', $total)
-                        ->with('types', $types);
+    		    return view('ae.view')
+    					   ->with('user', $user)
+    					   ->with('aesystem', $user->item_list)
+                 ->with('total', $total)
+                 ->with('types', $types)
+                 ->with('timezone', $tmezone);
     	}else {
             //Item list is invalid, generate proper message
     		return view('errors.404', ['error' => \App\Helpers\AESystemJSONValidator::$lastError]);
@@ -40,7 +44,7 @@ class AEInformationController extends Controller {
     /**
      * Currently not implemented
      * Handle search query for certain username
-     * 
+     *
      * @param request
      * @return response
      */
