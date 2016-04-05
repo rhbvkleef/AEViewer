@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'ae_system'
+        'name', 'email', 'password', 'ae_system', 'auth_token'
     ];
 
     /**
@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function getItemListAttribute() {
-        return $this->item_list_valid ? json_decode($this->ae_system) : false;
+        return $this->item_list_valid ? json_decode($this->item_list_raw) : false;
     }
 
     public function getItemListRawAttribute() {

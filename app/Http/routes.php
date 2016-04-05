@@ -28,6 +28,9 @@ Route::group(['middleware' => 'https'], function() {
     //Find an AE system
     Route::post('AESystem/search', 'AEInformationController@postSearch')->name('ae.search');
     Route::get('AESystem/all', 'AEInformationController@postSearch')->name('ae.all');
+
+    //Settings
+    Route::get('settings', 'UserController@getSettings')->name('user.settings')->middleware('auth');
   });
 });
 
