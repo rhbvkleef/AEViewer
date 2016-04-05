@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/rhbvkleef/AEViewer.svg?branch=master)](https://travis-ci.org/rhbvkleef/AEViewer)
 [![Join the chat at https://gitter.im/rhbvkleef/AEViewer](https://badges.gitter.im/rhbvkleef/AEViewer.svg)](https://gitter.im/rhbvkleef/AEViewer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Coverage Status](https://coveralls.io/repos/github/rhbvkleef/AEViewer/badge.svg?branch=master)](https://coveralls.io/github/rhbvkleef/AEViewer?branch=master)
 
 AE Viewer is a project built around bing able to view (and maybe in the future also modify) your AE-system. The repository you are looking at is the frontent website.
 
