@@ -24,14 +24,14 @@ class APIController extends Controller {
 		if($validator->fails()) {
 			//Laravel validator failed
 			return response()
-				->json(['status' => 'fail', 'reason' => 'Missing data'])
-				->setStatusCode(400, 'Bad request');
+			->json(['status' => 'fail', 'reason' => 'Missing data'])
+			->setStatusCode(400, 'Bad request');
 
 		}else if(!AEValidator::validateItemList($request->input('aeSystem'))) {
 			//JSON completeness validation failed
 			return response()
-				->json(['status' => 'fail', 'reason' => AEValidator::$lastError])
-				->setStatusCode(400, 'Bad request');
+			->json(['status' => 'fail', 'reason' => AEValidator::$lastError])
+			->setStatusCode(400, 'Bad request');
 
 		}else if(Auth::once(["name" => $request->username, "password" => $request->password])) {
 			//Store data in database
@@ -41,25 +41,25 @@ class APIController extends Controller {
 
 			//Send response
 			return response()
-				->json(['status' => 'success'])
-				->setStatusCode(200, 'success');
+			->json(['status' => 'success'])
+			->setStatusCode(200, 'success');
 
 		}else {
 			//Authentication failed
 			Log::warning("Authentication failed!");
 			return response()
-				->json(['status' => 'fail'])
-				->setStatusCode(401, 'Authentication failed')
-				->header('WWW-authenticate', "Basic realm=\"CCDatabase\"");
+			->json(['status' => 'fail'])
+			->setStatusCode(401, 'Authentication failed')
+			->header('WWW-authenticate', "Basic realm=\"CCDatabase\"");
 
 		}
 	}
 
 	public function postSearchUsers(Request $request) {
 		if($query = $request->input('search')) {
-				$users = User::where('name', 'LIKE', '%' . $request->input('search') . '%')->paginate(15);
+			$users = User::where('name', 'LIKE', '%' . $request->input('search') . '%')->paginate(15);
 		}else {
-				$users = User::paginate(15);
+			$users = User::paginate(15);
 		}
 		if($users) {
 			$names = [];
@@ -70,7 +70,7 @@ class APIController extends Controller {
 				));
 			}
 			return response()
-				->json($names);
+			->json($names);
 		}else return response()->json([]);
 	}
 }

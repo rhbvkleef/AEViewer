@@ -11,24 +11,24 @@
 |
 */
 Route::group(['middleware' => 'https'], function() {
-  Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+    Route::group(['middleware' => 'web'], function () {
+        Route::auth();
 
-    Route::get('/', function () {
-      return view('welcome');
+        Route::get('/', function () {
+            return view('welcome');
+        });
+
+        Route::get('/help', function() {
+            return view('ae.doc');
+        })->name('ae.doc');
+
+        //View AE system contents
+        Route::get('/AESystem/{user}/view', 'AEInformationController@getViewAESystem')->name('ae.view');
+
+        //Find an AE system
+        Route::post('AESystem/search', 'AEInformationController@postSearch')->name('ae.search');
+        Route::get('AESystem/all', 'AEInformationController@postSearch')->name('ae.all');
     });
-
-    Route::get('/help', function() {
-      return view('ae.doc');
-    })->name('ae.doc');
-
-    //View AE system contents
-    Route::get('/AESystem/{user}/view', 'AEInformationController@getViewAESystem')->name('ae.view');
-
-    //Find an AE system
-    Route::post('AESystem/search', 'AEInformationController@postSearch')->name('ae.search');
-    Route::get('AESystem/all', 'AEInformationController@postSearch')->name('ae.all');
-  });
 });
 
 //API for updating AE system contents

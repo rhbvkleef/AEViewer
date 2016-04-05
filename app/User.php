@@ -7,8 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Helpers\AESystemJSONValidator as AEValidator;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     /**
      * The attributes that are mass assignable.
      *

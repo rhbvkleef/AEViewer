@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
-class BasicAuthentication
-{
+class BasicAuthentication {
     /**
      * The guard factory instance.
      *
@@ -20,8 +19,7 @@ class BasicAuthentication
      * @param  \Illuminate\Contracts\Auth\Factory  $auth
      * @return void
      */
-    public function __construct(AuthFactory $auth)
-    {
+    public function __construct(AuthFactory $auth) {
         $this->auth = $auth;
     }
 
@@ -33,8 +31,7 @@ class BasicAuthentication
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
-    {
+    public function handle($request, Closure $next, $guard = null) {
         return $this->auth->guard($guard)->basic() ?: $next($request);
     }
 }
