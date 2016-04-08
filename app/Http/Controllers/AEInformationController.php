@@ -14,10 +14,10 @@ use App\Http\Controllers\Controller;
 class AEInformationController extends Controller {
     public function getViewAESystem(User $user) {
         //Check for user existance
-    	if(!$user) return view('errors.404')->with('error', 'noUserFound');
+        if(!$user) return view('errors.404')->with('error', 'noUserFound');
 
         //Check if item list is valid: if JSON checks out and if it contains the required parameters
-    	if($user->item_list_valid) {
+        if($user->item_list_valid) {
             //Count interesting metrics
             $total = 0;
             $types = 0;
@@ -29,16 +29,16 @@ class AEInformationController extends Controller {
             $timezone = Config::get('app.timezone');
 
             //Generate view
-    		    return view('ae.view')
-    					   ->with('user', $user)
-    					   ->with('aesystem', $user->item_list)
-                 ->with('total', $total)
-                 ->with('types', $types)
-                 ->with('timezone', "UTC");
-    	}else {
+            return view('ae.view')
+            ->with('user', $user)
+            ->with('aesystem', $user->item_list)
+            ->with('total', $total)
+            ->with('types', $types)
+            ->with('timezone', "UTC");
+        }else {
             //Item list is invalid, generate proper message
-    		return view('errors.404', ['error' => \App\Helpers\AESystemJSONValidator::$lastError]);
-    	}
+            return view('errors.404', ['error' => \App\Helpers\AESystemJSONValidator::$lastError]);
+        }
     }
 
     /**
@@ -59,10 +59,10 @@ class AEInformationController extends Controller {
         }else return view('errors.404', ['error' => 'No users found!']);
         //TODO:
         /*
-         * Search DB
-         * Check existance
-         * Handle pagination
-         * Create links
-         */
+        * Search DB
+        * Check existance
+        * Handle pagination
+        * Create links
+        */
     }
 }

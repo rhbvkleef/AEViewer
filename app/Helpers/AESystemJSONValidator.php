@@ -19,7 +19,7 @@ class AESystemJSONValidator {
     //Last error: used for determining what went wrong (outside this class)
     public static $lastError = '';
 
-	public static function validateItemList($ae_system) {
+    public static function validateItemList($ae_system) {
         //Decode JSON string and force it in UTF-8 charset
         $object = json_decode(utf8_encode($ae_system));
 

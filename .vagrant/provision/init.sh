@@ -29,14 +29,14 @@ mysqladmin -u root password laravel
 sudo -- bash -c '> /etc/apache2/sites-enabled/000-default.conf'
 
 function toFile {
-  cat <<EOF > /etc/apache2/sites-enabled/000-default.conf
-  <VirtualHost *:80>
-          ServerAdmin rhbvkleef@gmail.com
-          DocumentRoot /vagrant/public
+    cat <<EOF > /etc/apache2/sites-enabled/000-default.conf
+    <VirtualHost *:80>
+        ServerAdmin rhbvkleef@gmail.com
+        DocumentRoot /vagrant/public
 
-          ErrorLog ${APACHE_LOG_DIR}/error.log
-          CustomLog ${APACHE_LOG_DIR}/access.log combined
-  </VirtualHost>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
 EOF
 }
 
@@ -47,11 +47,11 @@ sudo bash -c "$DECTOFILE; toFile"
 #---------------- Modify apache config to add vagrant directory ----------------
 #-------------------------------------------------------------------------------
 function appendApacheConfig {
-  echo '<Directory /vagrant/>' >> /etc/apache2/apache2.conf
-  echo '  Options +Indexes +FollowSymLinks' >> /etc/apache2/apache2.conf
-  echo '  AllowOverride All' >> /etc/apache2/apache2.conf
-  echo '  Require all granted' >> /etc/apache2/apache2.conf
-  echo '</Directory>' >> /etc/apache2/apache2.conf
+    echo '<Directory /vagrant/>' >> /etc/apache2/apache2.conf
+    echo '  Options +Indexes +FollowSymLinks' >> /etc/apache2/apache2.conf
+    echo '  AllowOverride All' >> /etc/apache2/apache2.conf
+    echo '  Require all granted' >> /etc/apache2/apache2.conf
+    echo '</Directory>' >> /etc/apache2/apache2.conf
 }
 
 DECAPPENDCFG=`declare -f appendApacheConfig`

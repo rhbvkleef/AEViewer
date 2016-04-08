@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'https://aeviewer-rhbvkleef.rhcloud.com',
+    'url' => env('APP_URL', 'localhost'),
 
     /*
     |--------------------------------------------------------------------------

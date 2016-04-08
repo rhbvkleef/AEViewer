@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class XForwardedProtoHandler
-{
+class XForwardedProtoHandler {
   /**
   * Handle an incoming request.
   *

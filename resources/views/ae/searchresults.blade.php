@@ -8,7 +8,7 @@
                 <div class="panel-heading">Search results</div>
                 <ul class="list-group">
                     @foreach($users as $user)
-                        <li class="list-group-item"><a href="{{ route('ae.view', ['user' => $user->id]) }}">{{$user->name}}</a></li>
+                    <li class="list-group-item"><a href="{{ route('ae.view', ['user' => $user->id]) }}">{{$user->name}}</a></li>
                     @endforeach
                 </ul>
                 <?php $paginate_links = $users->render(); ?>

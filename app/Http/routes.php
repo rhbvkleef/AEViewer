@@ -11,19 +11,19 @@
 |
 */
 Route::group(['middleware' => 'https'], function() {
-  Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+    Route::group(['middleware' => 'web'], function () {
+        Route::auth();
 
-    Route::get('/', function () {
-      return view('welcome');
-    });
+        Route::get('/', function () {
+            return view('welcome');
+        });
 
-    Route::get('/help', function() {
-      return view('ae.doc');
-    })->name('ae.doc');
+        Route::get('/help', function() {
+            return view('ae.doc');
+        })->name('ae.doc');
 
-    //View AE system contents
-    Route::get('/AESystem/{user}/view', 'AEInformationController@getViewAESystem')->name('ae.view');
+        //View AE system contents
+        Route::get('/AESystem/{user}/view', 'AEInformationController@getViewAESystem')->name('ae.view');
 
     //Find an AE system
     Route::post('AESystem/search', 'AEInformationController@postSearch')->name('ae.search');
@@ -31,7 +31,6 @@ Route::group(['middleware' => 'https'], function() {
 
     //Settings
     Route::get('settings', 'UserController@getSettings')->name('user.settings')->middleware('auth');
-  });
 });
 
 //API for updating AE system contents

@@ -27,17 +27,17 @@
                     </thead>
                     <tbody>
                         @foreach($aesystem as $item)
-                            <tr>
-                                <td style="font-weight:bold;">{{urldecode($item->display_name)}}</td>
-                                <td>{{ $item->fingerprint->id }}</td>
-                                <td>{{ $item->fingerprint->dmg }}</td>
-                                <td>
-                                    {{ $item->size }}
-                                    @if( $item->is_fluid )
-                                        mB
-                                    @endif
-                                </td>
-                            </tr>
+                        <tr>
+                            <td style="font-weight:bold;">{{urldecode($item->display_name)}}</td>
+                            <td>{{ $item->fingerprint->id }}</td>
+                            <td>{{ $item->fingerprint->dmg }}</td>
+                            <td>
+                                {{ $item->size }}
+                                @if( $item->is_fluid )
+                                mB
+                                @endif
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -46,23 +46,23 @@
     </div>
 </div>
 <script>
-    var $rows = $('#itemList tbody tr');
-    $('#searchTable').keyup(function() {
-        var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-            reg = RegExp(val, 'i'),
-            text;
+var $rows = $('#itemList tbody tr');
+$('#searchTable').keyup(function() {
+    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+    reg = RegExp(val, 'i'),
+    text;
 
-        $rows.show().filter(function() {
-            var matches = false;
-            $(this).children().each(function() {
-                text = $(this).text().replace(/\s+/g, ' ');
-                if(reg.test(text)) {
-                    matches = true;
-                }
-            });
-            return !matches;
-        }).hide();
-    });
+    $rows.show().filter(function() {
+        var matches = false;
+        $(this).children().each(function() {
+            text = $(this).text().replace(/\s+/g, ' ');
+            if(reg.test(text)) {
+                matches = true;
+            }
+        });
+        return !matches;
+    }).hide();
+});
 </script>
 @endsection
 

@@ -20,42 +20,42 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     @yield('head')
     <style>
-        body {
-            font-family: 'Lato';
-        }
+    body {
+        font-family: 'Lato';
+    }
 
-        .fa-btn {
-            margin-right: 6px;
-        }
+    .fa-btn {
+        margin-right: 6px;
+    }
     </style>
     <script type="text/javascript">
-      var debounce = 0;
+    var debounce = 0;
 
-      $(document).on("keyup paste", function() {
+    $(document).on("keyup paste", function() {
         if(debounce > 0)
-          clearTimeout(debounce);
+        clearTimeout(debounce);
 
         var search = $("#searchUsers");
 
         var data = {"search": search.val()};
 
         debounce = setTimeout(function() {
-          $.post(
-            "{{ route('ae.api.search.suggest') }}",
-            data,
-            function (json) {
-              search.autocomplete({
-                source: json,
-                select: function(event, ui) {
-                  window.location.href = ui.item.link;
-                  return false;
+            $.post(
+                "{{ route('ae.api.search.suggest') }}",
+                data,
+                function (json) {
+                    search.autocomplete({
+                        source: json,
+                        select: function(event, ui) {
+                            window.location.href = ui.item.link;
+                            return false;
+                        }
+                    });
                 }
-              });
-            }
-            , 'json'
-          );
+                , 'json'
+            );
         }, 250);
-      });
+    });
     </script>
 </head>
 <body id="app-layout">
@@ -99,9 +99,10 @@
                     </li>
                     <!-- Authentication Links -->
                     @if (!Auth::check())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    <li><a href="{{ url('/login') }}">Login</a></li>
+                    <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
+<<<<<<< HEAD
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -114,6 +115,19 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
+=======
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ route('ae.view', ['user' => Auth::user()->id]) }}"><i class='fa fa-btn glyphicon glyphicon-th-list'></i>View AE system</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        </ul>
+                    </li>
+>>>>>>> master
                     @endif
                 </ul>
             </div>
