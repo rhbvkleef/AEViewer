@@ -31,6 +31,7 @@ Route::group(['middleware' => 'https'], function() {
 
     //Settings
     Route::get('settings', 'UserController@getSettings')->name('user.settings')->middleware('auth');
+  });
 });
 
 //API for updating AE system contents
