@@ -9,7 +9,7 @@
                 <div class="panel panel-info">
                   <div class="panel-heading">API token</div>
                   <div class="input-group">
-                    <input type="text" class="form-control" disabled value="0cc175b9c0f1b6a831c399e269772661" aria-describedby="copy">
+                    <input type="text" class="form-control" disabled value="{{ $user->api_token }}" aria-describedby="copy">
                     <div class="input-group-btn">
                       <button class="btn btn-default" id="copy">
                         <i class="glyphicon glyphicon-copy"></i>

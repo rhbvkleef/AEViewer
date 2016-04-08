@@ -108,8 +108,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ route('ae.view', ['user' => Auth::user()->id]) }}"><i class='fa fa-btn glyphicon glyphicon-th-list'></i>View AE system</a></li>
+                                <li><a href="{{ route('ae.view', ['user' => Auth::user()->id]) }}"><i class='fa fa-btn fa-list'></i>View AE system</a></li>
                                 <li role="separator" class="divider"></li>
+                                <li><a href="{{ route('user.settings') }}"><i class="fa fa-btn fa-cog"></i>Settings</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>

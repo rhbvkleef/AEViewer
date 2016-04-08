@@ -43,10 +43,10 @@ class APITokenGenerator {
     $bitmask = (int) (1 << $bitlen) - 1;
 
     do {
-      $random = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+      $random = hexdec(bin2hex(openssl_random_pseudo_bytes($bytelen)));
 
       //Bitmask irrelevant bits
-      $random = $random & $filter;
+      $random = $random & $bitmask;
     }while($random >= $range);
 
     return $min + $random;
