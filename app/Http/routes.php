@@ -10,32 +10,39 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['middleware' => 'https'], function() {
-    Route::group(['middleware' => 'web'], function () {
-        Route::auth();
+Route::group(['middleware' => ['https', 'web']], function() {
+    Route::auth();
 
-        Route::get('/', function () {
-            return view('welcome');
-        });
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-        Route::get('/help', function() {
-            return view('ae.doc');
-        })->name('ae.doc');
+    Route::get('/help', function() {
+        return view('ae.doc');
+    })->name('ae.doc');
 
-        //View AE system contents
-        Route::get('/AESystem/{user}/view', 'AEInformationController@getViewAESystem')->name('ae.view');
+    //View AE system contents
+    Route::get('/AESystem/{user}/view', 'AEInformationController@getViewAESystem')->name('ae.view');
 
-        //Find an AE system
-        Route::post('AESystem/search', 'AEInformationController@postSearch')->name('ae.search');
-        Route::get('AESystem/all', 'AEInformationController@postSearch')->name('ae.all');
+    //Find an AE system
+    Route::post('AESystem/search', 'AEInformationController@postSearch')->name('ae.search');
+    Route::get('AESystem/all', 'AEInformationController@postSearch')->name('ae.all');
 
+    Route::group(['middleware' => 'auth'], function() {
         //Settings
-        Route::get('settings', 'UserController@getSettings')->name('user.settings')->middleware('auth');
+        Route::get('settings', 'UserController@getSettings')->name('user.settings');
+        Route::post('settings/token/reset', 'UserController@postResetToken')->name('user.settings.reset');
     });
 });
 
-//API for updating AE system contents
-Route::post('/updateAESystem', 'APIController@postUpdateAESystem')->name('ae.api.update');
+Route::group(['middleware' => 'auth::api', 'prefix' => 'api'], function() {
+    //API for updating AE system contents
+    Route::post('/AESystem/update', 'APIController@postUpdateAESystem')->name('ae.api.update');
+});
+
+//Legacy API frontend
+//Depricated
+Route::post('/updateAESystem', 'APIController@postUpdateAESystemLegacy')->name('ae.api.update');
 
 //API for search completion
 Route::post('/AESystem/search/suggest', 'APIController@postSearchUsers')->name('ae.api.search.suggest');

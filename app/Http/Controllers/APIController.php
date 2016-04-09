@@ -15,7 +15,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class APIController extends Controller {
-	public function postUpdateAESystem(Request $request) {
+	public function postUpdateAESystemLegacy(Request $request) {
 
 		$validator = Validator::make($request->only('aeSystem'), [
 			'aeSystem' => 'required'
@@ -36,6 +36,45 @@ class APIController extends Controller {
 		}else if(Auth::once(["name" => $request->username, "password" => $request->password])) {
 			//Store data in database
 			$user = Auth::user();
+			$user->ae_system = utf8_encode($request->input('aeSystem'));
+			$user->save();
+
+			//Send response
+			return response()
+			->json(['status' => 'success'])
+			->setStatusCode(200, 'success');
+
+		}else {
+			//Authentication failed
+			Log::warning("Authentication failed!");
+			return response()
+			->json(['status' => 'fail'])
+			->setStatusCode(401, 'Authentication failed')
+			->header('WWW-authenticate', "Basic realm=\"CCDatabase\"");
+
+		}
+	}
+
+	public function postUpdateAESystemLegacy(Request $request) {
+
+		$validator = Validator::make($request->only('aeSystem'), [
+			'aeSystem' => 'required'
+		]);
+
+		if($validator->fails()) {
+			//Laravel validator failed
+			return response()
+			->json(['status' => 'fail', 'reason' => 'Missing data'])
+			->setStatusCode(400, 'Bad request');
+
+		}else if(!AEValidator::validateItemList($request->input('aeSystem'))) {
+			//JSON completeness validation failed
+			return response()
+			->json(['status' => 'fail', 'reason' => AEValidator::$lastError])
+			->setStatusCode(400, 'Bad request');
+
+		}else if($user = Auth::guard('api')->user()) {
+			//Store data in database
 			$user->ae_system = utf8_encode($request->input('aeSystem'));
 			$user->save();
 
