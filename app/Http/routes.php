@@ -35,9 +35,9 @@ Route::group(['middleware' => ['https', 'web']], function() {
     });
 });
 
-Route::group(['middleware' => 'auth::api', 'prefix' => 'api'], function() {
+Route::group(['prefix' => 'api'], function() {
     //API for updating AE system contents
-    Route::post('/AESystem/update', 'APIController@postUpdateAESystem')->name('ae.api.update');
+    Route::post('/AESystem/update', 'APIController@postUpdateAESystem')->name('ae.api.post');
 });
 
 //Legacy API frontend

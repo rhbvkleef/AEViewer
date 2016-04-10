@@ -46,25 +46,31 @@ class APIController extends Controller {
 
 		}else {
 			//Authentication failed
-			Log::warning("Authentication failed!");
 			return response()
-			->json(['status' => 'fail'])
+			->json(['status' => 'fail', 'reason' => 'auth'])
 			->setStatusCode(401, 'Authentication failed')
 			->header('WWW-authenticate', "Basic realm=\"CCDatabase\"");
 
 		}
 	}
 
-	public function postUpdateAESystemLegacy(Request $request) {
+	public function postUpdateAESystem(Request $request) {
 
 		$validator = Validator::make($request->only('aeSystem'), [
 			'aeSystem' => 'required'
 		]);
 
+		if(! ($user = Auth::guard('api')->user())) {
+			//Authentication failed
+			return response()
+			->json(['status' => 'fail', 'reason' => 'auth'])
+			->setStatusCode(401, 'Authentication failed');
+		}
+
 		if($validator->fails()) {
 			//Laravel validator failed
 			return response()
-			->json(['status' => 'fail', 'reason' => 'Missing data'])
+			->json(['status' => 'fail', 'reason' => 'MissingJSON'])
 			->setStatusCode(400, 'Bad request');
 
 		}else if(!AEValidator::validateItemList($request->input('aeSystem'))) {
@@ -73,7 +79,7 @@ class APIController extends Controller {
 			->json(['status' => 'fail', 'reason' => AEValidator::$lastError])
 			->setStatusCode(400, 'Bad request');
 
-		}else if($user = Auth::guard('api')->user()) {
+		}else {
 			//Store data in database
 			$user->ae_system = utf8_encode($request->input('aeSystem'));
 			$user->save();
@@ -82,14 +88,6 @@ class APIController extends Controller {
 			return response()
 			->json(['status' => 'success'])
 			->setStatusCode(200, 'success');
-
-		}else {
-			//Authentication failed
-			Log::warning("Authentication failed!");
-			return response()
-			->json(['status' => 'fail'])
-			->setStatusCode(401, 'Authentication failed')
-			->header('WWW-authenticate', "Basic realm=\"CCDatabase\"");
 
 		}
 	}

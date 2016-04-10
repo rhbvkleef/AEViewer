@@ -14,7 +14,7 @@ EOF
 sudo apt-get update
 
 # Install apache2, php5,
-sudo -E apt-get -q -y install apache2 php5 libapache2-mod-php5 mysql-server-5.5 php5-mcrypt php5-cli php5-common php5-mysql
+sudo -E apt-get -q -y install apache2 php5 libapache2-mod-php5 mysql-server-5.5 php5-mcrypt php5-cli php5-common php5-mysql php5-sqlite
 
 # Create forge database
 mysql -u root -e "CREATE DATABASE forge;"

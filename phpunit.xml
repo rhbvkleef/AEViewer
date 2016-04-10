@@ -11,7 +11,7 @@
          syntaxCheck="false">
     <testsuites>
         <testsuite name="Primary test suite">
-            <directory suffix=".php">tests</directory>
+            <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -19,4 +19,8 @@
             <directory suffix=".php">app/</directory>
         </whitelist>
     </filter>
+    <php>
+        <env name="DB_CONNECTION" value="sqlite" />
+        <env name="SQLITE_DB_PATH" value=":memory:" />
+    </php>
 </phpunit>

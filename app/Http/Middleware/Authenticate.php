@@ -15,14 +15,14 @@ class Authenticate {
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null) {
-        if (Auth::guard($guard)->guest()) {
+        if (!Auth::guard($guard)->user()) {
             if ($request->ajax() || $request->wantsJson() || $guard == 'api') {
-                return response('Unauthorized.', 401);
+                return response()
+    			->json(['status' => 'fail', 'reason' => 'auth'])
+    			->setStatusCode(401, 'Authentication failed');
             } else {
                 return redirect()->guest('login');
             }
-        }
-
-        return $next($request);
+        }else return $next($request);
     }
 }
