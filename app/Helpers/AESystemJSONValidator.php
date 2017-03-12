@@ -19,35 +19,35 @@ class AESystemJSONValidator {
     //Last error: used for determining what went wrong (outside this class)
     public static $lastError = '';
 
-    public static function validateItemList($ae_system) {
+    public static function stringifyJSONError($errorcode) {
+        switch ($errorcode) {
+            case JSON_ERROR_NONE:
+                return 'NaE';
+            case JSON_ERROR_DEPTH:
+                return 'StackDepth';
+            case JSON_ERROR_STATE_MISMATCH:
+                return 'UnderflowOrMismatch';
+            case JSON_ERROR_CTRL_CHAR:
+                return 'InvalidControlCharacter';
+            case JSON_ERROR_SYNTAX:
+                return 'MalformedJSON';
+            case JSON_ERROR_UTF8:
+                return  'MalformedTextEncoding';
+            default:
+                return 'UnknownError';
+        }
+    }
+
+    public static function validateItemList(
+                $ae_system,
+                $indexes = AESystemJSONValidator::$mandatoryArrayIndexes) {
+
         //Decode JSON string and force it in UTF-8 charset
         $object = json_decode(utf8_encode($ae_system));
 
         if(!$object) {
             //Translate error integer into understandable error string
-            switch (json_last_error()) {
-                case JSON_ERROR_NONE:
-                    $error = 'NaE';
-                    break;
-                case JSON_ERROR_DEPTH:
-                    $error = 'StackDepth';
-                    break;
-                case JSON_ERROR_STATE_MISMATCH:
-                    $error = 'UnderflowOrMismatch';
-                    break;
-                case JSON_ERROR_CTRL_CHAR:
-                    $error = 'InvalidControlCharacter';
-                    break;
-                case JSON_ERROR_SYNTAX:
-                    $error = 'MalformedJSON';
-                    break;
-                case JSON_ERROR_UTF8:
-                    $error =  'MalformedTextEncoding';
-                    break;
-                default:
-                    $error = 'UnknownError';
-                    break;
-            }
+            $error = stringifyJSONError(json_last_error());
 
             //Report error
             AESystemJSONValidator::$lastError = $error;
@@ -56,7 +56,8 @@ class AESystemJSONValidator {
 
         //Check validity of all items
         foreach($object as $item) {
-            if(!AESystemJSONValidator::checkKeyArray($item, AESystemJSONValidator::$mandatoryArrayIndexes)) return false;
+            if(!AESystemJSONValidator::checkKeyArray($item, $indexes))
+                return false;
         }
 
         return true;

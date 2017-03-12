@@ -47,7 +47,10 @@
                     <div class="panel-body">
                         There are currently a few security flaws in the way this program works.
                         <p>
-                            As you may have noticed, you need to enter your login password in plaintext on your computercraft computer. This is obviously very insecure. I have a few very elaborate ways to fix it, but I am sure your ideas must be much better. Again: Please email them to <a href="mailto:rhbvkleef+aeviewer@gmail.com">rhbvkleef+aeviewer@gmail.com</a> or create an issue on the github page <a href="https://github.com/rhbvkleef/AEViewer">rhbvkleef/AEViewer</a>.
+                            One significant vulnerability is that you need to enter your authentication token in plain text in your computer.
+                            If someone else gains access to your computer, he may very well be able to steal it and send other data to your account.
+                            If this would happen. Please log into this website, go to settings and reset your authentication token.
+                            A new token will be generated, and the old one will not work anymore.
                         </p>
                         <p>
                             On server side, your password is stored in a secure hashed format: I do not, and cannot know your password. I will not publish the specific crypto I am using, but rest assured it is going to take until the end of the universe to crack it. This does not mean you should do any of the following:
