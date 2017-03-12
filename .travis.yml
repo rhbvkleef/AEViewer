@@ -15,8 +15,8 @@ script: ./vendor/bin/phpunit
 
 matrix:
   allow_failures:
-    - hhvm
-    - 7.0
+    - php: hhvm
+    - php: 7.0
 
 notifications:
   on_success: never
