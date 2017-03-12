@@ -5,6 +5,10 @@ Vagrant.configure(2) do |config|
 
     config.vm.network "forwarded_port", guest: 80, host: 8080
 
+    config.vm.provider "virtualbox" do |vbox|
+        vbox.memory = 1024
+    end
+
     # Execute when box is created
     config.vm.provision "intial",
     type: "shell",
