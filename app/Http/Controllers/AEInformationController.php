@@ -57,12 +57,5 @@ class AEInformationController extends Controller {
         if($users) {
             return view('ae.searchresults', ['users' => $users]);
         }else return view('errors.404', ['error' => 'No users found!']);
-        //TODO:
-        /*
-        * Search DB
-        * Check existance
-        * Handle pagination
-        * Create links
-        */
     }
 }
