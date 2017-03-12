@@ -40,14 +40,14 @@ class AESystemJSONValidator {
 
     public static function validateItemList(
                 $ae_system,
-                $indexes = AESystemJSONValidator::$mandatoryArrayIndexes) {
-
+                $indexes = null) {
+        $indexes = $indexes ?: AESystemJSONValidator::$mandatoryArrayIndexes;
         //Decode JSON string and force it in UTF-8 charset
         $object = json_decode(utf8_encode($ae_system));
 
         if(!$object) {
             //Translate error integer into understandable error string
-            $error = stringifyJSONError(json_last_error());
+            $error = AESystemJSONValidator::stringifyJSONError(json_last_error());
 
             //Report error
             AESystemJSONValidator::$lastError = $error;
@@ -56,8 +56,9 @@ class AESystemJSONValidator {
 
         //Check validity of all items
         foreach($object as $item) {
-            if(!AESystemJSONValidator::checkKeyArray($item, $indexes))
+            if(!AESystemJSONValidator::checkKeyArray($item, $indexes)) {
                 return false;
+            }
         }
 
         return true;

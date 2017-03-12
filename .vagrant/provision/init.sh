@@ -8,13 +8,13 @@ sudo apt-get upgrade -y
 
 # Add php-5.6 repository.
 sudo apt-get install python-software-properties
-sudo add-apt-repository ppa:ondrej/php5-5.6 <<EOF
+sudo add-apt-repository ppa:ondrej/php <<EOF
 
 EOF
 sudo apt-get update
 
 # Install apache2, php5,
-sudo -E apt-get -q -y install apache2 php5 libapache2-mod-php5 mysql-server-5.5 php5-mcrypt php5-cli php5-common php5-mysql php5-sqlite
+sudo -E apt-get -q -y install apache2 php5.6 libapache2-mod-php5.6 mysql-server-5.5 php5.6-mcrypt php5.6-cli php5.6-common php5.6-mysql php5.6-sqlite php5.6-mbstring php5.6-xml
 
 # Create forge database
 mysql -u root -e "CREATE DATABASE forge;"
