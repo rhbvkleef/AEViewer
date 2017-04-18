@@ -1,5 +1,7 @@
 # AE Viewer
 
+[![Join the chat at https://gitter.im/rhbvkleef/AEViewer](https://badges.gitter.im/rhbvkleef/AEViewer.svg)](https://gitter.im/rhbvkleef/AEViewer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/rhbvkleef/AEViewer.svg?branch=master)](https://travis-ci.org/rhbvkleef/AEViewer)
 [![Join the chat at https://gitter.im/rhbvkleef/AEViewer](https://badges.gitter.im/rhbvkleef/AEViewer.svg)](https://gitter.im/rhbvkleef/AEViewer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Github All Releases](https://img.shields.io/github/downloads/rhbvkleef/aeviewer/total.svg)](http://github.com/rhbvkleef/aeviewer)
